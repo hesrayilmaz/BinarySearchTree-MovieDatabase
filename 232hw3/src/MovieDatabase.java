@@ -2,7 +2,7 @@
 public class MovieDatabase {
 
 	BST<String,Movie> movieTree=new BST<String,Movie>();
-	BST<String,String> cast=new BST<String,String>();
+	//BST<String,Cast> cast=new BST<String,Cast>();
 	
 	//Movie[] movieList=new Movie[100];
 	//int index=0;
@@ -37,7 +37,9 @@ public class MovieDatabase {
 	
 	public void addActor(String movieTitle, String actorFirstName, String actorLastName, String actorRole) {
 		
-	
+		Cast actor=new Cast(movieTitle, actorFirstName, actorLastName, actorRole);
+		movieTree.get(movieTitle).actorTree.put(actorRole, actor);
+		
 	}
 	
 	public void removeActor(String movieTitle, String actorFirstName, String actorLastName) {

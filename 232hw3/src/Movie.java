@@ -4,6 +4,8 @@ public class Movie {
 	String title,direc_fname, direc_lname;
 	int day, month, year;
 	
+	BST <String,Cast>actorTree ;
+	
 	public Movie(String title, String direc_fname, String direc_lname, int day, int month, int year) {
 
 		this.title = title;
@@ -12,6 +14,7 @@ public class Movie {
 		this.day = day;
 		this.month = month;
 		this.year = year;
+		actorTree=new BST<String,Cast>();
 	}
 	
 	public String toString() {
