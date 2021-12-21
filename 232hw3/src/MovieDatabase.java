@@ -1,9 +1,9 @@
 
 public class MovieDatabase {
 
-	BST<String,Movie> movieTree=new BST<String,Movie>();
+	BST<Integer,Movie> movieTree=new BST<Integer,Movie>();
 	//BST<String,Cast> cast=new BST<String,Cast>();
-	
+	Movie movie;
 	//Movie[] movieList=new Movie[100];
 	//int index=0;
 	
@@ -11,10 +11,11 @@ public class MovieDatabase {
 	public void addMovie(String movieTitle, String directorFirstName, String directorLastName, int releaseDay,
 			int releaseMonth, int releaseYear) {
 		
-		Movie movie=new Movie(movieTitle, directorFirstName, directorLastName, releaseDay, releaseMonth, releaseYear);
+		movie=new Movie(movieTitle, directorFirstName, directorLastName, releaseDay, releaseMonth, releaseYear);
 		
-		if(movieTree.get(movieTitle)==null) {
-		movieTree.put(movieTitle, movie);
+		//KONTROL ET!!!!!
+		if(!movieTree.get(releaseYear).title.equals(movieTitle)) {
+		movieTree.put(releaseYear, movie);
 		//movieList[index]=new Movie(movieTitle,directorFirstName,directorLastName,releaseDay,releaseMonth,releaseYear);
 		//index++;
 
@@ -26,8 +27,9 @@ public class MovieDatabase {
 	
 	public void removeMovie(String movieTitle) {
 		
-		if(movieTree.get(movieTitle)!=null) {
-			movieTree.delete(movieTitle);
+		//KONTROL ET!!!!
+		if(movieTree.get(movie.year).title.equals(movieTitle)) {
+			movieTree.delete(movie.year);
 			System.out.println("INFO: Movie "+movieTitle+" has been removed");
 		}
 		else
@@ -37,8 +39,9 @@ public class MovieDatabase {
 	
 	public void addActor(String movieTitle, String actorFirstName, String actorLastName, String actorRole) {
 		
+		//YANLIŞ OLDU KONTROL ET
 		Cast actor=new Cast(movieTitle, actorFirstName, actorLastName, actorRole);
-		movieTree.get(movieTitle).actorTree.put(actorRole, actor);
+		movieTree.get(movie.year).actorTree.put(actorRole, actor);
 		
 	}
 	
