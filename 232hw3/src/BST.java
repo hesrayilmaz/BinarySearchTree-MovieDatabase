@@ -3,6 +3,7 @@ public class BST<Key extends Comparable<Key>, Value>
 	 {
 	
 		private Node root;
+		Key key=null;
 	
 	private class Node
 	{
@@ -33,6 +34,11 @@ public class BST<Key extends Comparable<Key>, Value>
 	   else           return x.N;
 	}
 	
+	public boolean contains (Key key) {
+		if (key == null) throw new IllegalArgumentException("argument to contains() is null");
+        return get(key) != null;
+	}
+	
 	public Value get(Key key) {
 		return get(root, key);
 	}
@@ -51,11 +57,6 @@ public class BST<Key extends Comparable<Key>, Value>
 		// Search for key. Update value if found; grow table if new.
 	     root = put(root, key, val);
 	}
-	// See page 407 for min(), max(), floor(), and ceiling().
-	// See page 409 for select() and rank().
-	// See page 411 for delete(), deleteMin(), and deleteMax().
-	// See page 413 for keys().
-	
 	
 	
 	private Node put(Node x, Key key, Value val)
@@ -82,7 +83,17 @@ public class BST<Key extends Comparable<Key>, Value>
 	     if (x.left == null) return x;
 	     return min(x.left);
 	  }
-	  /*public Key floor(Key key)
+	  
+	  public Key max() {
+	        return max(root).key;
+	    } 
+
+	    private Node max(Node x) {
+	        if (x.right == null) return x; 
+	        else return max(x.right); 
+	    } 
+	    
+	  public Key floor(Key key)
 	  {
 	     Node x = floor(root, key);
 	     if (x == null) return null;
@@ -97,15 +108,16 @@ public class BST<Key extends Comparable<Key>, Value>
 	     Node t = floor(x.right, key);
 	     if (t != null) return t;
 	     else           return x;
-	}*/
+	}
 	
 	
 	
-	/*public Key select(int k)
+	public Key select(int k)
 	  {
 	     return select(root, k).key;
 	  }
-	  private Node select(Node x, int k)
+	  
+	private Node select(Node x, int k)
 	  {   // Return Node containing key of rank k.
 	      if (x == null) return null;
 	      int t = size(x.left);
@@ -113,8 +125,10 @@ public class BST<Key extends Comparable<Key>, Value>
 	      else if (t < k) return select(x.right, k-t-1);
 	      else            return x;
 	}
+	 
 	  public int rank(Key key)
 	  {  return rank(key, root);  }
+	 
 	  private int rank(Key key, Node x)
 	  {  // Return number of keys less than x.key in the subtree rooted at x.
 	     if (x == null) return 0;
@@ -122,7 +136,7 @@ public class BST<Key extends Comparable<Key>, Value>
 	     if      (cmp < 0) return rank(key, x.left);
 	     else if (cmp > 0) return 1 + size(x.left) + rank(key, x.right);
 	     else              return size(x.left);
-	}*/
+	}
 	
 	
 	public void deleteMin()
@@ -137,6 +151,19 @@ public class BST<Key extends Comparable<Key>, Value>
 	     x.N = size(x.left) + size(x.right) + 1;
 	     return x;
 	}
+	
+	public void deleteMax() {
+        root = deleteMax(root);     
+    }
+
+    private Node deleteMax(Node x) {
+        if (x.right == null) return x.left;
+        x.right = deleteMax(x.right);
+        x.N = size(x.left) + size(x.right) + 1;
+        return x;
+    }
+	
+	
 	  
 	public void delete(Key key)
 	  {  root = delete(root, key);  }
@@ -162,8 +189,10 @@ public class BST<Key extends Comparable<Key>, Value>
 
 	  
 	  
-	 /* public Iterable<Key> keys()
+	  public Iterable<Key> keys()
 	  {  return keys(min(), max());  }
+	  
+	  
 	  public Iterable<Key> keys(Key lo, Key hi)
 	  {
 	      Queue<Key> queue = new Queue<Key>();
@@ -178,9 +207,55 @@ public class BST<Key extends Comparable<Key>, Value>
 	     if (cmplo < 0) keys(x.left, queue, lo, hi);
 	     if (cmplo <= 0 && cmphi >= 0) queue.enqueue(x.key);
 	     if (cmphi > 0) keys(x.right, queue, lo, hi);
-	}*/
-
+	}
+	  
+	  
+	  Key search(Node node,String s)
+	    {
+		  
+		  	key=node.key;
+	        
+		  	if (node == null)
+	            return null;
+		  	
+		  	if(node.val.toString().contains(s))
+		  		return key;
+	        
+	        while(!node.val.toString().contains(s)) {
+	        
+	        /* then recur on left subtree */
+	        	search(node.left,s);
+	 
+	        /* now recur on right subtree */
+	        	search(node.right,s);
+	        
+	        }
+	       
+	        return key;
+	    }
+	  
+	  Key search(String s) { 
+		  search(root,s); 
+		  return key;
+		}
+	  
+	  
+	  void printPreorder(Node node)
+	    {
+	        if (node == null)
+	            return;
 	
+	        /* first print data of node */
+	        System.out.print(node.key + " ");
+	 
+	        /* then recur on left subtree */
+	        printPreorder(node.left);
+	 
+	        /* now recur on right subtree */
+	        printPreorder(node.right);
+	    }
+	  
+	  void printPreorder() { printPreorder(root); }
 	
 	}
 	
