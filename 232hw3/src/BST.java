@@ -1,5 +1,12 @@
 import java.util.NoSuchElementException;
-
+//-----------------------------------------------------
+//Title: BST Class
+//Author: Hatice Esra Yılmaz
+//ID: 
+//Section: 1
+//Assignment: 3
+//Description: This class contains various operations to use for the binary search tree
+//-----------------------------------------------------
 
 public class BST<Key extends Comparable<Key>, Value> {
     private Node root;             // root of BST

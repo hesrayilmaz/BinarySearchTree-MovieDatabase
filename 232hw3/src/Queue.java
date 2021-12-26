@@ -1,5 +1,14 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+//-----------------------------------------------------
+//Title: Queue Class
+//Author: Hatice Esra Yılmaz
+//ID: 
+//Section: 1
+//Assignment: 3
+//Description: This class defines a queue and its operations
+//-----------------------------------------------------
+
 
 /*
  *  @param <Item> the generic type of an item in this queue

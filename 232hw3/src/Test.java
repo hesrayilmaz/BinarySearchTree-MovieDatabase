@@ -1,4 +1,11 @@
-
+//-----------------------------------------------------
+//Title: Test Class
+//Author: Hatice Esra Yılmaz
+//ID: 
+//Section: 1
+//Assignment: 3
+//Description: This class tests the methods on the trees, which were created in the MovieDatabase Class
+//-----------------------------------------------------
 public class Test {
 
 	public static void main(String[] args) {
@@ -7,7 +14,8 @@ public class Test {
 		MovieDatabase md = new MovieDatabase();
 
 		md.showAllMovies();
-
+		System.out.println();
+		
 		md.addMovie("Eyes Wide Shut", "Stanley", "Kubrick", 22, 10, 1999);
 		md.addMovie("Family Plot", "Alfred", "Hitchock", 9, 4, 1972);
 		md.addMovie("Psycho", "Alfred", "Hitchock", 20, 5, 1960);
@@ -16,12 +24,19 @@ public class Test {
 		md.addMovie("Barton Fink", "Coen", "Brothers", 21, 8, 1991);
 		md.addMovie("The Interpreter", "Sydney", "Pollack", 22, 4, 2005);
 		md.addMovie("Psycho", "Alfred", "Hitchock", 20, 5, 1960);
-
+		System.out.println();
+		
 		md.showAllMovies();
+		System.out.println();
+		
 		md.removeMovie("Midnight in Paris");
-
+		System.out.println();
+		
 		md.showAllMovies();
+		System.out.println();
 		md.showMovie("Eyes Wide Shut");
+		System.out.println();
+		
 		md.addActor("Barton Fink", "John", "Turturro", "Barton Fink");
 		md.addActor("Barton Fink", "John", "Goodman", "Charlie Meadows");
 		md.addActor("Barton Fink", "Judy", "Davis", "Audrey Taylor");
@@ -35,15 +50,23 @@ public class Test {
 		md.addActor("The Interpreter", "Nicole", "Kidman", "Silvia Broom");
 		md.addActor("The Interpreter ", "Sean", "Penn", "Tobin Keller");
 		md.addActor("The Interpreter ", "Earl", "Cameron", "Zuwanie");
-
+		System.out.println();
+		
 		md.showMovie("Barton Fink");
+		System.out.println();
 		md.showMovie("Eyes Wide Shut");
+		System.out.println();
+		
 		md.removeActor("Eyes Wide Shut", "Jackie", "Sawaris");
+		System.out.println();
+		
 		md.showMovie("Eyes Wide Shut");
-	//	md.showActorRoles("Nicole", "Kidman");
-	//	md.showActorRoles("Judy", "Davis");
-	//	md.showDirectorMovies("Alfred", "Hitchock");
-	//	md.showDirectorMovies("Stanley", "Kubrick");
+		System.out.println();
+		
+		md.showActorRoles("Nicole", "Kidman");
+		md.showActorRoles("Judy", "Davis");
+		md.showDirectorMovies("Alfred", "Hitchock");
+		md.showDirectorMovies("Stanley", "Kubrick");
 		
 		
 		 System.exit(0);
