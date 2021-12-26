@@ -3,11 +3,7 @@ import java.util.Arrays;
 public class MovieDatabase {
 
 	BST<Movie, String> movieTree = new BST<Movie, String>();
-	// BST<String,Cast> cast=new BST<String,Cast>();
 	Movie movie;
-	Movie[] movieList = new Movie[100];
-	Movie[] movieListCopy = new Movie[100];
-	int index = 0;
 
 	public void addMovie(String movieTitle, String directorFirstName, String directorLastName, int releaseDay,
 			int releaseMonth, int releaseYear) {
@@ -20,7 +16,7 @@ public class MovieDatabase {
 				return;
 			}	
 		}
-			movieTree.put(movie, movieTitle);
+			movieTree.putMovie(movie, movieTitle);
 			System.out.println("INFO: Movie " + movieTitle + " has been added");
 		
 
@@ -41,10 +37,9 @@ public class MovieDatabase {
 
 		
 		for (Movie key : movieTree.levelOrder()) {
-
 			if (key.title.equals(movieTitle)) {
 				Cast actor=new Cast(movieTitle, actorFirstName, actorLastName, actorRole);
-				key.actorTree.put(actorFirstName+" "+actorLastName, actor);
+				key.actorTree.putActor(actorFirstName+" "+actorLastName, actor);
 				System.out.println("INFO : " + actorFirstName + " " + actorLastName + " has been added to the movie " + movieTitle);
 				return;
 			}
@@ -72,13 +67,34 @@ public class MovieDatabase {
 
 	public void showAllMovies() {
 
-		
+		for (Movie key : movieTree.levelOrder()) {
+			if (key.title!=null) {
+				System.out.println(key.title+" "+key.year+" "+key.direc_fname+" "+key.direc_lname);
+			}
+			else 
+				System.out.println("---none---");
+			}
 
 	}
 
 	public void showMovie(String movieTitle) {
 
+		for (Movie key : movieTree.levelOrder()) {
+			if (key.title.equals(movieTitle)) {
+				System.out.println(key.title+"/n"+key.day+"/"+key.month+"/"+key.year+
+						"/n"+key.direc_fname+" "+key.direc_lname);
+				for (String actor : key.actorTree.levelOrder()) {
+					if(key.actorTree.get(actor).movieTitle.equals(movieTitle)) {
+						
+						System.out.println(key.actorTree.get(actor).fname+" "+key.actorTree.get(actor).lname
+								+" "+key.actorTree.get(actor).role);
+				}
+				}
+				return;
+			}
+		}
 		
+		System.out.println("---none---");
 	}
 
 	public void showActorRoles(String actorFirstName, String actorLastName) {

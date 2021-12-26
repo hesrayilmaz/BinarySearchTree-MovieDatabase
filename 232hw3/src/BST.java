@@ -1,5 +1,3 @@
-
-
 import java.util.NoSuchElementException;
 
 
@@ -91,26 +89,47 @@ public class BST<Key extends Comparable<Key>, Value> {
      * @param  val the value
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
-    public void put(Key key, Value val) {
+    public void putMovie(Key key, Value val) {
         if (key == null) throw new IllegalArgumentException("calls put() with a null key");
         if (val == null) {
             delete(key);
             return;
         }
-        root = put(root, key, val);
+        root = putMovie(root, key, val);
        
     }
 
-    private Node put(Node x, Key key, Value val) {
+    private Node putMovie(Node x, Key key, Value val) {
         if (x == null) return new Node(key, val, 1);
-        int cmp = key.compareTo(x.key);
-        if      (cmp < 0) x.left  = put(x.left,  key, val);
-        else if (cmp > 0) x.right = put(x.right, key, val);
-        else              x.val   = val;
+        Movie oldMovie=(Movie)x.key;
+        Movie newMovie=(Movie)key;
+        int cmp = newMovie.compareTo(oldMovie);
+        if      (cmp <= 0) x.left  = putMovie(x.left,  key, val);
+        else if (cmp > 0) x.right = putMovie(x.right, key, val);
+     //   else              x.val   = val;
         x.size = 1 + size(x.left) + size(x.right);
         return x;
     }
 
+    public void putActor(Key key, Value val) {
+        if (key == null) throw new IllegalArgumentException("calls put() with a null key");
+        if (val == null) {
+            delete(key);
+            return;
+        }
+        root = putActor(root, key, val);
+       
+    }
+
+    private Node putActor(Node x, Key key, Value val) {
+        if (x == null) return new Node(key, val, 1);
+        int cmp = key.compareTo(x.key);
+        if      (cmp < 0) x.left  = putActor(x.left,  key, val);
+        else if (cmp > 0) x.right = putActor(x.right, key, val);
+        else              x.val   = val;
+        x.size = 1 + size(x.left) + size(x.right);
+        return x;
+    }
 
     /**
      * Removes the smallest key and associated value from the symbol table.
