@@ -1,5 +1,5 @@
 
-public class Movie {
+public class Movie implements Comparable<Movie>{
 
 	String title,direc_fname, direc_lname;
 	int day, month, year;
@@ -19,6 +19,15 @@ public class Movie {
 	
 	public String toString() {
 		return title+" "+year+" "+direc_fname+" "+direc_lname;
+	}
+
+	@Override
+	public int compareTo(Movie o) {
+		if(this.year<o.year)
+			return -1;
+		else if (o.year<this.year)
+			return 1;
+		return 0;
 	}
 	
 	

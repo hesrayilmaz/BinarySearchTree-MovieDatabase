@@ -2,95 +2,94 @@ import java.util.Arrays;
 
 public class MovieDatabase {
 
-	BST<Integer,Movie> movieTree=new BST<Integer,Movie>();
-	//BST<String,Cast> cast=new BST<String,Cast>();
+	BST<Movie, String> movieTree = new BST<Movie, String>();
+	// BST<String,Cast> cast=new BST<String,Cast>();
 	Movie movie;
-	Movie[] movieList=new Movie[100];
-	Movie[] movieListCopy=new Movie[100];
-	int index=0;
-	
-	
+	Movie[] movieList = new Movie[100];
+	Movie[] movieListCopy = new Movie[100];
+	int index = 0;
+
 	public void addMovie(String movieTitle, String directorFirstName, String directorLastName, int releaseDay,
 			int releaseMonth, int releaseYear) {
-		
-		movie=new Movie(movieTitle, directorFirstName, directorLastName, releaseDay, releaseMonth, releaseYear);
-		
-		//KONTROL ET!!!!!
-		if(!movieTree.get(releaseYear).title.equals(movieTitle)) {
-		movieTree.put(releaseYear, movie);
-		movieList[index]=new Movie(movieTitle,directorFirstName,directorLastName,releaseDay,releaseMonth,releaseYear);
-		index++;
 
-		System.out.println("INFO: Movie "+movieTitle+" has been added");
+		movie = new Movie(movieTitle, directorFirstName, directorLastName, releaseDay, releaseMonth, releaseYear);
+
+		for(Movie m: movieTree.levelOrder()) {
+			if(m.title.equals(movieTitle)) {
+				System.out.println("ERROR: Movie " + movieTitle + " overwritten");
+				return;
+			}	
 		}
-		else
-			System.out.println("ERROR: Movie "+movieTitle+" overwritten");
+			movieTree.put(movie, movieTitle);
+			System.out.println("INFO: Movie " + movieTitle + " has been added");
+		
+
 	}
-	
+
 	public void removeMovie(String movieTitle) {
-		
-		//KONTROL ET!!!!
-		if(movieTree.get(movie.year).title.equals(movieTitle)) {
-			movieTree.delete(movie.year);
-			System.out.println("INFO: Movie "+movieTitle+" has been removed");
-		}
-		else
-			System.out.println("ERROR: Movie "+movieTitle+" does not exist");
 
-			}
-	
+		for(Movie m: movieTree.levelOrder()) {
+			if(m.title.equals(movieTitle)) {
+			movieTree.delete(m);
+			System.out.println("INFO: Movie " + movieTitle + " has been removed");
+			return;}
+		}
+			System.out.println("ERROR: Movie " + movieTitle + " does not exist");
+	}
+
 	public void addActor(String movieTitle, String actorFirstName, String actorLastName, String actorRole) {
+
 		
-		//KONTROL ET!!!!!!!!!!!!
-		Cast actor=new Cast(movieTitle, actorFirstName, actorLastName, actorRole);
-		
-		Integer key=movieTree.search(movieTitle);
-		
-		if(key!=null) {
-			movieTree.get(key).actorTree.put(actorFirstName, actor);
+		for (Movie key : movieTree.levelOrder()) {
+
+			if (key.title.equals(movieTitle)) {
+				Cast actor=new Cast(movieTitle, actorFirstName, actorLastName, actorRole);
+				key.actorTree.put(actorFirstName+" "+actorLastName, actor);
+				System.out.println("INFO : " + actorFirstName + " " + actorLastName + " has been added to the movie " + movieTitle);
+				return;
+			}
 		}
-		
-		
+		System.out.println("INFO: Movie " + movieTitle + " does not exist");
+
 	}
-	
+
 	public void removeActor(String movieTitle, String actorFirstName, String actorLastName) {
+
+		for (Movie key : movieTree.levelOrder()) {
+			if (key.title.equals(movieTitle)) {
+				for (String actor : key.actorTree.levelOrder()) {
+					if(actor.equals(actorFirstName+" "+actorLastName)) {
+					key.actorTree.delete(actorFirstName+" "+actorLastName);
+					System.out.println("INFO : " + actorFirstName + " " + actorLastName + " has been added to the movie " + movieTitle);
+					return;
+				}
+				}
+			}
+		}
 		
+		System.out.println("INFO: Actor " + actorFirstName + " " + actorLastName + " does not exist in Movie " + movieTitle);
 	}
-	
+
 	public void showAllMovies() {
+
 		
-	for(int i=0,j=0;i<movieList.length;i++) {
-		 
-		if(movieList[i]!=null) {
-			movieListCopy[j]=movieList[i];
-			j++;
-		}
+
 	}
-		
-	Arrays.sort(movieListCopy);
-	int i=0;
-	
-	while(movieListCopy[i]!=null) {
-		System.out.println(movieListCopy[i].title+", "+movieListCopy[i].year+", "+movieListCopy[i].direc_fname+" "+movieListCopy[i].direc_lname);
-	}
-	
-	}
-	
+
 	public void showMovie(String movieTitle) {
+
 		
-		//BAKKK
-		Integer key=movieTree.search(movieTitle);
-		
-		if(key!=null) {
-			System.out.println(movieTree.get(key).toString());
-		}
 	}
-	
+
 	public void showActorRoles(String actorFirstName, String actorLastName) {
-		
+
+	}
+
+	public void showDirectorMovies(String directorFirstName, String directorLastName) {
+
 	}
 	
-	public void showDirectorMovies(String directorFirstName, String directorLastName) {
-		
-	}
+	
+	
+	
 }
